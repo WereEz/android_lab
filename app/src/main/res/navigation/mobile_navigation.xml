@@ -1,0 +1,29 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.android.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/navigation_records"
+        android:name="com.example.android.ui.records.RecordsFragment"
+        tools:layout="@layout/fragment_records" />
+
+    <fragment
+        android:id="@+id/fragment_edit"
+        android:name="com.example.android.ui.edit.EditFragment"
+        tools:layout="@layout/fragment_edit" />
+    <fragment
+        android:id="@+id/fragment_landmark"
+        android:name="com.example.android.ui.landmark.LandmarkFragment"
+        tools:layout="@layout/fragment_landmark" />
+    <fragment
+        android:id="@+id/add_note"
+        android:name="com.example.android.ui.add.AddFragment"
+        tools:layout="@layout/fragment_add_note" />
+</navigation>

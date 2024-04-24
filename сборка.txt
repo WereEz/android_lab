@@ -1,0 +1,2 @@
+команда создани апк gradlew assembleDebug
+местопложение апк app\build\outputs\apk\debug
