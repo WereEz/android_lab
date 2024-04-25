@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.android.R
 import com.example.android.databinding.FragmentLandmarkBinding
 import okhttp3.*
 import org.json.JSONException
@@ -73,7 +74,7 @@ class LandmarkFragment : Fragment() {
             fetchLandmarkDetails(xid)
         }
         binding.closeButton.setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.navigation_home)
         }
     }
 
@@ -102,7 +103,6 @@ class LandmarkFragment : Fragment() {
     private fun parseLandmarkDetails(responseBody: String, xid: String) {
         try {
             val jsonObject = JSONObject(responseBody)
-            Log.e("JSON Parsing Error", "Failed to parse landmark details: ${jsonObject}")
             landmarkName = jsonObject.getString("name")
             imagePath = jsonObject.optString("image", "")
             val wiki = jsonObject.getJSONObject("wikipedia_extracts")
@@ -112,7 +112,9 @@ class LandmarkFragment : Fragment() {
                 binding.textLandmarkName.visibility = View.VISIBLE
                 if (imagePath.isNotEmpty()) {
                     loadImage(imagePath)
-
+                }
+                activity?.runOnUiThread {
+                    setupViewPager()
                 }
             }
 
@@ -150,7 +152,6 @@ class LandmarkFragment : Fragment() {
                         }
                     }
                 }
-
             }
 
             override fun onFailure(call: Call, e: IOException) {
@@ -167,6 +168,8 @@ class LandmarkFragment : Fragment() {
             putString("description", description)
             putString("imagePath", imagePath)
         }
+        Log.e("JSON Parsing Error 1", "Failed to parse landmark details: ${imagePath}")
+
         val adapter = LandmarkPagerAdapter(childFragmentManager, args)
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
